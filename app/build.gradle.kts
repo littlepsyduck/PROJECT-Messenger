@@ -1,10 +1,11 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
     alias(libs.plugins.kotlin.android)
-
-    kotlin("plugin.serialization") version "2.0.20"
-//    id("com.google.gms.google-services")
+    kotlin("plugin.serialization") version "2.0.21"
+    alias(libs.plugins.google.gms.google.services)
+    id("com.google.devtools.ksp")
 }
+
 
 android {
     namespace = "dev.proptit.kotlinflow"
@@ -50,6 +51,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,4 +61,10 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-database")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1")
+    implementation (libs.firebase.auth)
+    implementation (libs.com.google.firebase.firebase.firestore)
+
+    implementation (libs.gson)
+
+    implementation ("com.google.firebase:firebase-messaging:24.1.0")
 }

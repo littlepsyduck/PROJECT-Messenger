@@ -6,6 +6,8 @@ import dev.proptit.kotlinflow.domain.Chat
 import dev.proptit.kotlinflow.service.ChatService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 class ChatListVimel: ViewModel() {
@@ -15,8 +17,13 @@ class ChatListVimel: ViewModel() {
 
     init {
         viewModelScope.launch {
-            val chats = chatService.getUserChats("1")
-            _data.value = chats
+            chatService.getUserChats()
+                .onEach {
+                    _data.value = it
+                    println("🔥 Danh sách chat: $it")
+
+                }
+                .launchIn(viewModelScope)
         }
     }
 }
