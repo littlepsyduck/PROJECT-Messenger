@@ -5,10 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class MessageDto(
-    val senderId: String,
-    val text: String,
-    val createdAt: Long = System.currentTimeMillis(),
+    val senderId: String = "",
+    val text: String = "",
+    val createdAt: Long = 0L
 ) {
+    constructor() : this("", "", 0L)
+
     fun mapToMessage(id: String): Message {
         return Message(
             senderId = senderId,

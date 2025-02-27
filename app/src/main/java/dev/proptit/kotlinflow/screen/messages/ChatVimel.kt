@@ -4,32 +4,43 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.proptit.kotlinflow.domain.Message
 import dev.proptit.kotlinflow.service.MessageService
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class ChatVimel: ViewModel() {
+class ChatVimel : ViewModel() {
     private val messageService = MessageService()
+    private lateinit var currentChatId: String
+    private val currentUserId = "user123" // Giả lập userId, có thể thay bằng Firebase Auth hoặc SharedPreferences
+
     private val _messages = MutableStateFlow<List<Message>>(emptyList())
     val messages = _messages.asStateFlow()
 
-    private val _newMessage = MutableSharedFlow<Message>()
-    val newMessage = _newMessage.asSharedFlow()
+    fun getCurrentUserId(): String {
+        return currentUserId
+    }
 
     fun init(chatId: String) {
+        currentChatId = chatId
         viewModelScope.launch {
-            messageService.collectMessageUpdate(chatId) { change, message ->
-                _newMessage.emit(message)
-            }
-        }
-        viewModelScope.launch {
-            fetchMessages(chatId)
+            messageService.getMessages(chatId)
+                .onEach { messages ->
+                    _messages.value = messages
+                }
+                .launchIn(viewModelScope)
         }
     }
 
-    private suspend fun fetchMessages(chatId: String) {
-        _messages.value = messageService.getMessages(chatId = chatId)
+    fun sendMessage(text: String) {
+        viewModelScope.launch {
+            val message = Message(
+                id = System.currentTimeMillis().toString(),
+                senderId = currentUserId,
+                text = text
+            )
+            messageService.sendMessage(currentChatId, message.toString())
+        }
     }
 }

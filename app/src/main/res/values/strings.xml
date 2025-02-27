@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PracticeFlow</string>
+    <string name="add_chat" />
 </resources>

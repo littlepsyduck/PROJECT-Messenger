@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 data class Message(
     val id: String,
     val senderId: String,
+    val senderName: String = "Unknown",
+    val avatarUrl: String = "",
     val text: String,
     val createdAt: Long = System.currentTimeMillis(),
 )

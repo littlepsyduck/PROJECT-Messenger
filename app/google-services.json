@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "427108980972",
+    "project_id": "practiceflow-fcf35",
+    "storage_bucket": "practiceflow-fcf35.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427108980972:android:16e18ebcdb05bd36cb2dc9",
+        "android_client_info": {
+          "package_name": "dev.proptit.kotlinflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOnFV9rBqc2-y-0LDWQYJclz7ARIS-0Ig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

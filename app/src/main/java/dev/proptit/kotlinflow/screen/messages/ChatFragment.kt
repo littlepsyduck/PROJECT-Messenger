@@ -4,18 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dev.proptit.kotlinflow.databinding.FragmentChatBinding
 import kotlinx.coroutines.launch
 
-class ChatFragment: Fragment() {
-    private val vimel by viewModels<ChatVimel>()
+class ChatFragment : Fragment() {
     private val binding by lazy {
-        FragmentChatBinding.inflate(LayoutInflater.from(requireContext()))
+        FragmentChatBinding.inflate(layoutInflater)
     }
+    private val vimel: ChatVimel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,22 +27,30 @@ class ChatFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvChatList.adapter = MessagesAdapter()
-
-        val chatId = requireArguments().getString("chatId") ?: throw IllegalArgumentException("chatId is required")
+        val chatId = requireArguments().getString("chatId")
+            ?: throw IllegalArgumentException("chatId is required")
         vimel.init(chatId)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            launch {
-                vimel.newMessage.collect {
-                    Toast.makeText(context, "New message: $it", Toast.LENGTH_SHORT).show()
-                }
+        val currentUserId = vimel.getCurrentUserId()
+        val adapter = MessagesAdapter(currentUserId)
+        binding.rvMessageList.adapter = adapter
+
+        binding.btnSendMessage.setOnClickListener {
+            val text = binding.etMessageInput.text.toString()
+            if (text.isNotBlank()) {
+                vimel.sendMessage(text)
+                binding.etMessageInput.text.clear()
             }
-            launch {
-                vimel.messages.collect {
-                    (binding.rvChatList.adapter as MessagesAdapter).submitList(it)
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            vimel.messages.collect { messages ->
+                adapter.submitList(messages)
+                if (messages.isNotEmpty()) {
+                    binding.rvMessageList.scrollToPosition(messages.size - 1)
                 }
             }
         }
     }
+
 }
