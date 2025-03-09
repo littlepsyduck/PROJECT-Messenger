@@ -1,64 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
+    android:orientation="horizontal"
     android:padding="12dp">
 
-    <!-- Ảnh đại diện -->
     <ImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_avatar_placeholder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/circle_shape" />
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_gallery" />
 
-    <!-- Tiêu đề chat -->
-    <TextView
-        android:id="@+id/tvChatTitle"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Group A"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/ivAvatar"
-        app:layout_constraintTop_toTopOf="@id/ivAvatar"
-        app:layout_constraintEnd_toStartOf="@id/tvTimestamp"
-        android:paddingStart="12dp"
-        android:maxLines="1"
-        android:ellipsize="end"/>
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <!-- Tin nhắn cuối cùng -->
-    <TextView
-        android:id="@+id/tvLatestMessage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Hey someone wants to hang out?"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintStart_toStartOf="@id/tvChatTitle"
-        app:layout_constraintTop_toBottomOf="@id/tvChatTitle"
-        app:layout_constraintEnd_toStartOf="@id/tvTimestamp"
-        android:maxLines="1"
-        android:ellipsize="end"/>
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-    <!-- Thời gian tin nhắn -->
+        <TextView
+            android:id="@+id/tvLastMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
     <TextView
-        android:id="@+id/tvTimestamp"
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="10:30 AM"
-        android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvChatTitle"/>
+        android:layout_marginStart="8dp"
+        android:textSize="12sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

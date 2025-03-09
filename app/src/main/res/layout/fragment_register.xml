@@ -6,34 +6,35 @@
     android:padding="16dp">
 
     <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Tên hiển thị"
+        android:inputType="textPersonName" />
+
+    <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_marginBottom="8dp"/>
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:layout_marginBottom="8dp"/>
-
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginTop="8dp"
+        android:hint="Mật khẩu"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Register"/>
+        android:layout_marginTop="16dp"
+        android:text="Đăng ký" />
 
     <!-- ProgressBar để hiển thị khi đang xử lý đăng ký -->
     <ProgressBar

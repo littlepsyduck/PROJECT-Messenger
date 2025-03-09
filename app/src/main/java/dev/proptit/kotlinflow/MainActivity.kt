@@ -1,27 +1,34 @@
 package dev.proptit.kotlinflow
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import dev.proptit.kotlinflow.screen.auth.LoginFragment
+import dev.proptit.kotlinflow.screen.chat.ChatListFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars =
-                insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            val imeHeight = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-            v.setPadding(
-                systemBars.left,
-                systemBars.top,
-                systemBars.right,
-                systemBars.bottom + imeHeight
-            )
-            insets
+
+        // Start with login fragment
+        if (savedInstanceState == null) {
+            showFragment(LoginFragment())
         }
+    }
+
+    fun showFragment(fragment: Fragment, addToBackStack: Boolean = true) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+        
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+        
+        transaction.commit()
+    }
+
+    fun showChatList() {
+        showFragment(ChatListFragment(), false)
     }
 }
