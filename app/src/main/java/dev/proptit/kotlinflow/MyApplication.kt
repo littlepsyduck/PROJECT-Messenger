@@ -8,15 +8,21 @@ import android.os.Build
 import android.util.Log
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
-import dev.proptit.kotlinflow.notification.NotificationHelper
+import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+import dev.proptit.kotlinflow.domain.usecases.auth.UpdateFCMTokenUseCase
 
+@HiltAndroidApp
 class MyApplication : Application() {
     private val TAG = "MyApplication"
     private val scope = CoroutineScope(Dispatchers.IO)
+
+    @Inject
+    lateinit var updateFCMTokenUseCase: UpdateFCMTokenUseCase
 
     companion object {
         const val CHANNEL_NAME = "Chat Messages"
@@ -31,9 +37,6 @@ class MyApplication : Application() {
         
         // Tạo notification channel
         createNotificationChannel()
-        
-        // Khởi tạo NotificationHelper
-        NotificationHelper.initialize(this)
         
         // Lấy FCM token
         getFCMToken()
@@ -62,6 +65,7 @@ class MyApplication : Application() {
             try {
                 val token = FirebaseMessaging.getInstance().token.await()
                 Log.d(TAG, "FCM Token: $token")
+                updateFCMTokenUseCase(token)
             } catch (e: Exception) {
                 Log.e(TAG, "Error getting FCM token", e)
             }

@@ -1,5 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Flow Messenger</string>
     <string name="add_chat" />
     <string name="default_notification_channel_id">chat_messages</string>
+    <string name="default_notification_channel_name">Chat Messages</string>
+    <string name="default_notification_channel_description">Notifications for chat messages</string>
+    
+    <!-- Login -->
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="hint_name">Tên</string>
+    <string name="btn_login">Đăng nhập</string>
+    <string name="btn_register">Đăng ký tài khoản mới</string>
+    <string name="error_empty_fields">Vui lòng nhập đầy đủ thông tin</string>
+    <string name="error_login_failed">Đăng nhập thất bại</string>
+    <string name="error_register_failed">Đăng ký thất bại</string>
+    
+    <!-- Chat List -->
+    <string name="welcome_message">Xin chào, %1$s</string>
+    <string name="action_logout">Đăng xuất</string>
+    <string name="error_load_chats">Không thể tải danh sách chat</string>
+    
+    <!-- Chat -->
+    <string name="hint_message">Nhập tin nhắn...</string>
+    <string name="btn_send">Gửi</string>
+    <string name="error_send_message">Không thể gửi tin nhắn</string>
+    <string name="error_load_messages">Không thể tải tin nhắn</string>
+    
+    <!-- Notifications -->
+    <string name="notification_title">Tin nhắn mới</string>
+    <string name="notification_message">%1$s: %2$s</string>
 </resources>
